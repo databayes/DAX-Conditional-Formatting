@@ -1,0 +1,10 @@
+CF Category =
+SWITCH (
+    TRUE (),
+    [Identify Outliers] > [Outlier Threshold Value], [Harvest Outlier Color], -- logic for switch true
+    SELECTEDVALUE ( Categories[CategoryName] ) = "Beverages", "Coral", -- for selected values
+    CONTAINSSTRING ( SELECTEDVALUE ( Categories[CategoryName] ), "ere" ), "Goldenrod", -- if contains then 
+    LEFT ( SELECTEDVALUE ( Categories[CategoryName] ), 4 ) = "conf", "Crimson", -- if starts with in first 4 characters
+    RIGHT ( SELECTEDVALUE ( Categories[CategoryName] ), 2 ) = "ce", "DarkSeaGreen", -- if ends within in last two characters
+    "Lavender"
+)
