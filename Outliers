@@ -1,0 +1,25 @@
+Identify Outliers =
+VAR vTable =
+    CALCULATETABLE (
+        ADDCOLUMNS (
+            DISTINCT ( Categories[CategoryName] ),
+            "@AvgSalesbyCat", [Avg Sales]
+        ),
+        REMOVEFILTERS ( Products[ProductID] )
+    )
+VAR vTable2 =
+    ADDCOLUMNS ( DISTINCT ( Products[ProductID] ), "@AvgSalesbyProd", [Avg Sales] )
+VAR Numerator =
+    CALCULATE (
+        MAXX ( vTable2, [@AvgSalesbyProd] ),
+        FILTER ( vTable2, Products[ProductID] = [Harvest ProdID] )
+    )
+VAR Denominator =
+    CALCULATE (
+        MAXX ( vTable, [@AvgSalesbyCat] ),
+        FILTER ( vTable, Categories[CategoryName] = [Harvest CatID] )
+    )
+VAR Result =
+    DIVIDE ( Numerator, Denominator, BLANK () )
+RETURN
+    Result
