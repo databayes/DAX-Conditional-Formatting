@@ -1,0 +1,6 @@
+SWITCH (
+    TRUE (),
+    [Sum of Amount MoM] <0 , -- logic for switch true
+    "Red",
+    "Black"
+)
